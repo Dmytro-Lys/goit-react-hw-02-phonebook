@@ -1,50 +1,36 @@
-import { Section } from "./Section";
-import { FeedbackOptions } from "./FeedbackOptions"
-import { Statistics } from "./Statistics";
-import { Notification } from "./Notification";
-import { Component } from "react";
+import css from "./App.module.css"
+import ContactForm from "./ContactForm";
+import { ContactList } from "./ContactList"
 
-class Feedback extends Component{
+import { Component } from "react";
+import { nanoid } from "nanoid";
+
+class App extends Component{
  state = {
-  good: 0,
-  neutral: 0,
-  bad: 0
+  contacts: [],
+  filter: ''
   }
   
-  updateFeedback = evt => {
-    const option = evt.target.textContent;
-    this.setState({ [option]: this.state[option] + 1 })
+  addContact = contact => {
+    
+    this.setState(prev => {
+      // prev.contacts.push({ id: nanoid(), ...contact })
+      return { contacts: [ ...prev.contacts, {id: nanoid(), ...contact }]  }
+    })
   }
-  countTotalFeedback = () => {
-   return  Object.values(this.state).reduce((total, value) => {return total + value}, 0)
-  }
-  countPositiveFeedbackPercentage = () => {
-    return Math.round(this.state.good / this.countTotalFeedback() * 100)
-  }
+  
   render() {
-    const {good, neutral, bad} = this.state
     return (
-      <>
-      <Section title="Please leave feedback">
-          <FeedbackOptions options={this.state} onLeaveFeedback={this.updateFeedback} />
-      </Section>
-      { this.countTotalFeedback() ?
-        <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={this.countTotalFeedback()}
-            positiveFeedbackPercentage={this.countPositiveFeedbackPercentage()}
-          />
-        </Section>
-       :
-        <Notification message="There is no feedback"/>
-        }
-      </>
+      <div className={css.container}>
+        <h1 className={css.title}>Phonebook</h1>
+        <ContactForm onSubmit={values => this.addContact(values)}/>
+
+        <h2 className={css.title}>Contacts</h2>
+        {this.state.contacts && <ContactList contacts={this.state.contacts}/>}
+      </div>
     )
   }
+  
 }
-export const App = () => {
-   return(<Feedback/>)
- }
+
+export default App
