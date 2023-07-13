@@ -26,7 +26,7 @@ class App extends Component{
 
   filterContacts = () => this.state.contacts.filter(contact => contact.name.toLowerCase().includes(this.state.filter.toLowerCase()))
 
-  findContact = name => this.state.contacts.find(contact => contact.name === name)
+  findContact = name => this.state.contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase())
 
   delContact = id => {this.setState(prev => {return {contacts: prev.contacts.filter(contact => contact.id !== id)}})}
   
