@@ -1,6 +1,7 @@
 .contact-form {
   display: flex;
   flex-direction: column;
+
   gap: 16px;
   border: 1px solid black;
   max-width: 335px;
@@ -17,7 +18,8 @@
 
 .contact-input {
   font-size: 18px;
-  outline-color: aqua;
+  outline-color: blue;
+  width: 300px;
 }
 
 .contact-btn {
@@ -27,6 +29,9 @@
   padding-left: 10px;
   padding-right: 10px;
   border: 1px solid rgba(5, 5, 5, 0.2);
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color var(--trans-hv);
 }
 
 .contact-btn:hover {

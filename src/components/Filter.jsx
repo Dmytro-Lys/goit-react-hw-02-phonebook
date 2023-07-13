@@ -1,14 +1,22 @@
-import css  from './Section.module.css'
+import css  from './ContactForm.module.css'
 import PropTypes from "prop-types";
 
-export const Section = ({ title, children }) => {
-    return (<section className={css.section}>
-        <h2 className={css.title}>{title}</h2>
-        {children}
-        </section>
+export const Filter = ({filter, handleChange}) => {
+    return (
+        <label className={css["contact-label"]}>
+              Find contact by name    
+              <input
+                type="text"
+                name="filter"
+                value={filter}
+                onChange={handleChange}
+                className={css["contact-input"]}
+              />
+            </label>
     )
 }
 
-Section.propTypes = {
-    title: PropTypes.string.isRequired
+Filter.propTypes = {
+    filter: PropTypes.string.isRequired,
+    handleChange: PropTypes.func.isRequired
 }
